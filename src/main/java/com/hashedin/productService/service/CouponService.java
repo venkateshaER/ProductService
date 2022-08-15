@@ -9,22 +9,27 @@ import com.hashedin.productService.dao.Coupon;
 import com.hashedin.productService.repository.CouponRepository;
 import com.hashedin.productService.utility.Response;
 import com.hashedin.productService.utility.ResponseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class CouponService implements CouponServiceInterface{
 	
 	@Autowired
 	private CouponRepository couponRepository;
+	private static final Logger LOGGER = LoggerFactory.getLogger(CouponService.class);
 
 	@Override
 	public Response createCoupon(Coupon coupon) {
 		boolean isCoupon=couponRepository.findByCouponName(coupon.getCouponName()).isPresent();
 		if(isCoupon) {
+			LOGGER.error("Coupon Name Already Exits");
 			Response response=ResponseUtil.getResponse(201, "Coupon Name Already Exits");
 			return response;
 		}
 		else {
 			couponRepository.save(coupon);
+			LOGGER.info("Coupon Created Successfully");
 			Response response=ResponseUtil.getResponse(201, "Coupon Created Successfully");
 			return response;
 		}
