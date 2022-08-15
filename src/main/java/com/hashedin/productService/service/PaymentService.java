@@ -43,7 +43,7 @@ public class PaymentService implements PaymentServiceInterface{
 	@Autowired
 	private PaymentRepository paymentRepository;
 	
-	@Value("${product.discount}")
+	@Value("${product.discount: default value}")
 	private String productDiscount;
 	
 	@Override

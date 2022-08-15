@@ -1,6 +1,5 @@
 package com.hashedin.productService.productController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.hashedin.productService.dao.Cart;
 import com.hashedin.productService.dao.CartResponse;
-import com.hashedin.productService.dao.User;
 import com.hashedin.productService.dao.UserResponse;
 import com.hashedin.productService.dto.CartDto;
 import com.hashedin.productService.service.CartServiceInterface;
@@ -38,8 +36,11 @@ public class CartController {
 	@Autowired
 	private RestTemplate restTemplate;
 	
+	public static final String USER_SERVICE="addToCart";
+	
 	@PostMapping("/addToCart")
 	@HystrixCommand(fallbackMethod = "cartResponse")
+//	@CircuitBreaker(name=USER_SERVICE, fallbackMethod = "cartResponse")
 	public ResponseEntity<CartResponse> addToCart(@RequestBody CartDto cartDto, @RequestHeader String token){
 		//add user code url
 		UserResponse userResponse=new UserResponse();
