@@ -21,6 +21,8 @@ public class ApplicationConfig {
 	public BCryptPasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	
 	@Bean
 	@LoadBalanced
 	public RestTemplate getRestTemplate() {
